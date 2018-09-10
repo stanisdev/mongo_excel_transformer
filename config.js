@@ -13,4 +13,5 @@ module.exports = {
     port: 22,
     dstPort: 27000,
   },
+  delimiter: "\n",
 };

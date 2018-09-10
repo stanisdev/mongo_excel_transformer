@@ -1,6 +1,8 @@
 const path = require('path');
 const connect = require(path.join(__dirname, '/connect'));
 const fs = require('fs');
+const {exit} = require(path.join(__dirname, '/services'));
+const config = require(path.join(__dirname, '/config'));
 
 connect({ collectionName: 'data' })
   .then((res) => {
@@ -26,7 +28,7 @@ connect({ collectionName: 'data' })
                 if (!doc) {
                   return rej(new Error('Empty doc'));
                 }
-                fs.appendFileSync(backupPath, JSON.stringify(doc) + "\n");
+                fs.appendFileSync(backupPath, JSON.stringify(doc) + config.delimiter);
                 res();
               });
           });
@@ -35,8 +37,3 @@ connect({ collectionName: 'data' })
       .catch(exit);
   })
   .catch(exit);
-
-function exit(err) {
-  console.log(err);
-  process.exit(1);
-}
